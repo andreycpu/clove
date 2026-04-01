@@ -8,17 +8,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var hotKeyRef: EventHotKeyRef?
 
     private var statusItem: NSStatusItem!
-    private var popupWindow: NSWindow?
+    private var popupWindow: NSPanel?
     private var isPopupVisible = false
 
     let store = ItemStore()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
-
         setupStatusItem()
-        registerHotKey()
-
+        // Defer hotkey registration until after run loop is fully started
+        DispatchQueue.main.async { self.registerHotKey() }
         clipboardMonitor = ClipboardMonitor(store: store)
         clipboardMonitor?.start()
         folderWatcher = FolderWatcher(store: store)
@@ -44,16 +43,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func showPopup() {
-        guard let screen = NSScreen.main,
-              let button = statusItem.button,
-              let buttonWindow = button.window else { return }
+        guard let screen = NSScreen.main else { return }
 
         if popupWindow == nil {
             let hosting = NSHostingView(rootView: ClovePopupView().environmentObject(store))
-            hosting.frame = NSRect(x: 0, y: 0, width: 700, height: 120)
+            let winW: CGFloat = 700
+            let winH: CGFloat = 120
+            hosting.frame = NSRect(x: 0, y: 0, width: winW, height: winH)
 
-            let win = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 700, height: 120),
+            let win = NSPanel(
+                contentRect: NSRect(x: 0, y: 0, width: winW, height: winH),
                 styleMask: [.borderless, .nonactivatingPanel],
                 backing: .buffered,
                 defer: false
@@ -62,8 +61,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             win.backgroundColor = .clear
             win.isOpaque = false
             win.level = .statusBar
-            win.collectionBehavior = [.canJoinAllSpaces, .stationary]
+            win.collectionBehavior = [.canJoinAllSpaces, .stationary, .fullScreenAuxiliary]
             win.hasShadow = true
+            win.becomesKeyOnlyIfNeeded = false
             popupWindow = win
 
             NotificationCenter.default.addObserver(
@@ -71,11 +71,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 object: win,
                 queue: .main
             ) { [weak self] _ in
-                self?.hidePopup()
+                // Small delay prevents immediate re-hide when focus transitions during show
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    guard let self = self, self.isPopupVisible else { return }
+                    self.hidePopup()
+                }
             }
         }
 
-        // Position centered at top of screen, just below the menu bar
         let winW: CGFloat = 700
         let winH: CGFloat = 120
         let menuBarH = NSStatusBar.system.thickness
@@ -83,8 +86,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let y = screen.frame.maxY - menuBarH - winH - 4
 
         popupWindow?.setFrame(NSRect(x: x, y: y, width: winW, height: winH), display: false)
-        popupWindow?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        popupWindow?.orderFrontRegardless()
+        popupWindow?.makeKey()
         isPopupVisible = true
     }
 
@@ -93,17 +96,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isPopupVisible = false
     }
 
-    // Cmd+Shift+V via Carbon RegisterEventHotKey (no Accessibility permission needed)
     private func registerHotKey() {
-        var eventType = EventTypeSpec(
+        var eventSpec = EventTypeSpec(
             eventClass: OSType(kEventClassKeyboard),
             eventKind: UInt32(kEventHotKeyPressed)
         )
+
+        let selfPtr = Unmanaged.passUnretained(self).toOpaque()
+
         InstallEventHandler(
             GetApplicationEventTarget(),
-            { (_, event, userdata) -> OSStatus in
+            { (_, event, userData) -> OSStatus in
+                guard let event = event, let userData = userData else { return noErr }
                 var hkID = EventHotKeyID()
-                GetEventParameter(
+                let err = GetEventParameter(
                     event,
                     EventParamName(kEventParamDirectObject),
                     EventParamType(typeEventHotKeyID),
@@ -112,20 +118,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     nil,
                     &hkID
                 )
-                if hkID.id == 1 {
-                    DispatchQueue.main.async {
-                        (NSApp.delegate as? AppDelegate)?.togglePopup()
-                    }
-                }
+                guard err == noErr, hkID.id == 1 else { return noErr }
+                let delegate = Unmanaged<AppDelegate>.fromOpaque(userData).takeUnretainedValue()
+                DispatchQueue.main.async { delegate.togglePopup() }
                 return noErr
             },
-            1, &eventType, nil, nil
+            1, &eventSpec, selfPtr, nil
         )
 
         // V = keycode 9, Cmd+Shift
         let modifiers = UInt32(cmdKey | shiftKey)
-        let id = EventHotKeyID(signature: FourCharCode(0x434C5654), id: 1) // 'CLVT'
-        RegisterEventHotKey(9, modifiers, id, GetApplicationEventTarget(), 0, &hotKeyRef)
+        let hkID = EventHotKeyID(signature: FourCharCode(0x434C5654), id: 1)
+        RegisterEventHotKey(9, modifiers, hkID, GetApplicationEventTarget(), 0, &hotKeyRef)
     }
 
     func openSettings() {
