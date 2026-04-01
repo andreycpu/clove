@@ -27,8 +27,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "leaf.fill", accessibilityDescription: "Clove")
-            button.image?.isTemplate = true
+            if let img = NSImage(named: "MenuBarIcon") {
+                img.size = NSSize(width: 18, height: 18)
+                img.isTemplate = true
+                button.image = img
+            } else {
+                button.image = NSImage(systemSymbolName: "leaf.fill", accessibilityDescription: "Clove")
+                button.image?.isTemplate = true
+            }
             button.action = #selector(togglePopup)
             button.target = self
         }

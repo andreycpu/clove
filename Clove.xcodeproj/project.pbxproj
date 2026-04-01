@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1822E8279C70510AFA93F047 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59141A83248C21B3046786 /* FolderWatcher.swift */; };
+		20356733B53B41FAA87B4F1B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0357B4681A5396DC78E76912 /* main.swift */; };
 		3C3D67E7D20E09BE29012014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A7806DB9379359197F186C /* AppDelegate.swift */; };
 		4A34A7A7A84B6F2E2F185F3B /* ClovePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05587E7B9E41B8ADD51C6AE /* ClovePopupView.swift */; };
 		6039CF6AC7EEBFEC133A86A4 /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617212B052484166D82D0D9 /* ClipboardMonitor.swift */; };
@@ -16,11 +17,14 @@
 		9FF3D2852D7CEEC4D4CDE0D8 /* CloveItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD1E0140A65A32F9BAB25A /* CloveItem.swift */; };
 		AE1899AAAC46E869EAF74AEA /* CloveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0387967D6666B1954A4D10E /* CloveApp.swift */; };
 		C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2EB3502256888F71D514C /* ItemCell.swift */; };
+		FFA3720DFD52E7D7065A242F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D37E57B95ABB6E631433A43 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0357B4681A5396DC78E76912 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2AB2EB3502256888F71D514C /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		30DD1E0140A65A32F9BAB25A /* CloveItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloveItem.swift; sourceTree = "<group>"; };
+		3D37E57B95ABB6E631433A43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F59141A83248C21B3046786 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
 		72A7806DB9379359197F186C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A617212B052484166D82D0D9 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
@@ -46,7 +50,9 @@
 			isa = PBXGroup;
 			children = (
 				72A7806DB9379359197F186C /* AppDelegate.swift */,
+				3D37E57B95ABB6E631433A43 /* Assets.xcassets */,
 				C0387967D6666B1954A4D10E /* CloveApp.swift */,
+				0357B4681A5396DC78E76912 /* main.swift */,
 				DEC70EA0E40DC11B0D538EA8 /* Models */,
 				DDD4AB1683A8E83CC3EE33A3 /* Monitors */,
 				8C2E5845B364158457C19639 /* Stores */,
@@ -104,6 +110,7 @@
 			buildConfigurationList = 450F7923B2F94DC6B75DCA45 /* Build configuration list for PBXNativeTarget "Clove" */;
 			buildPhases = (
 				D9F9298E72F1C570801B0950 /* Sources */,
+				4F3E33BAB427910101291DB7 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -146,6 +153,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		4F3E33BAB427910101291DB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFA3720DFD52E7D7065A242F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D9F9298E72F1C570801B0950 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -160,6 +178,7 @@
 				C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */,
 				8804C9ECAD28A8264C317AAB /* ItemStore.swift in Sources */,
 				83FF03D5082DD426FDBC061F /* SettingsView.swift in Sources */,
+				20356733B53B41FAA87B4F1B /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
