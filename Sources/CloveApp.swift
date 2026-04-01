@@ -6,8 +6,7 @@ struct CloveApp: App {
 
     var body: some Scene {
         Settings {
-            SettingsView()
-                .environmentObject(appDelegate.store)
+            EmptyView()
         }
     }
 }

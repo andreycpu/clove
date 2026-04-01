@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10F21D737D402C89BC3AA936 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB3AD07D7037C231DEDD25 /* ContentView.swift */; };
 		1822E8279C70510AFA93F047 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59141A83248C21B3046786 /* FolderWatcher.swift */; };
 		3C3D67E7D20E09BE29012014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A7806DB9379359197F186C /* AppDelegate.swift */; };
+		4A34A7A7A84B6F2E2F185F3B /* ClovePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05587E7B9E41B8ADD51C6AE /* ClovePopupView.swift */; };
 		6039CF6AC7EEBFEC133A86A4 /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617212B052484166D82D0D9 /* ClipboardMonitor.swift */; };
 		83FF03D5082DD426FDBC061F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B603F9D415689B415C37EC4D /* SettingsView.swift */; };
 		8804C9ECAD28A8264C317AAB /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC79C2CAC9C1CE36A962EA2 /* ItemStore.swift */; };
 		9FF3D2852D7CEEC4D4CDE0D8 /* CloveItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD1E0140A65A32F9BAB25A /* CloveItem.swift */; };
-		A372539673ACD024B6D1B68D /* PanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5572D6C8C4DE37E74337C614 /* PanelController.swift */; };
 		AE1899AAAC46E869EAF74AEA /* CloveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0387967D6666B1954A4D10E /* CloveApp.swift */; };
 		C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2EB3502256888F71D514C /* ItemCell.swift */; };
 /* End PBXBuildFile section */
@@ -22,22 +21,21 @@
 /* Begin PBXFileReference section */
 		2AB2EB3502256888F71D514C /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		30DD1E0140A65A32F9BAB25A /* CloveItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloveItem.swift; sourceTree = "<group>"; };
-		5572D6C8C4DE37E74337C614 /* PanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelController.swift; sourceTree = "<group>"; };
 		5F59141A83248C21B3046786 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
 		72A7806DB9379359197F186C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A617212B052484166D82D0D9 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
 		A8EDDF78E23DCE9DB4E19813 /* Clove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clove.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B603F9D415689B415C37EC4D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0387967D6666B1954A4D10E /* CloveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloveApp.swift; sourceTree = "<group>"; };
+		C05587E7B9E41B8ADD51C6AE /* ClovePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClovePopupView.swift; sourceTree = "<group>"; };
 		EDC79C2CAC9C1CE36A962EA2 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
-		F3CB3AD07D7037C231DEDD25 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		2D8AFD7D17C107C97AF7FD72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3CB3AD07D7037C231DEDD25 /* ContentView.swift */,
+				C05587E7B9E41B8ADD51C6AE /* ClovePopupView.swift */,
 				2AB2EB3502256888F71D514C /* ItemCell.swift */,
 				B603F9D415689B415C37EC4D /* SettingsView.swift */,
 			);
@@ -49,7 +47,6 @@
 			children = (
 				72A7806DB9379359197F186C /* AppDelegate.swift */,
 				C0387967D6666B1954A4D10E /* CloveApp.swift */,
-				5572D6C8C4DE37E74337C614 /* PanelController.swift */,
 				DEC70EA0E40DC11B0D538EA8 /* Models */,
 				DDD4AB1683A8E83CC3EE33A3 /* Monitors */,
 				8C2E5845B364158457C19639 /* Stores */,
@@ -158,11 +155,10 @@
 				6039CF6AC7EEBFEC133A86A4 /* ClipboardMonitor.swift in Sources */,
 				AE1899AAAC46E869EAF74AEA /* CloveApp.swift in Sources */,
 				9FF3D2852D7CEEC4D4CDE0D8 /* CloveItem.swift in Sources */,
-				10F21D737D402C89BC3AA936 /* ContentView.swift in Sources */,
+				4A34A7A7A84B6F2E2F185F3B /* ClovePopupView.swift in Sources */,
 				1822E8279C70510AFA93F047 /* FolderWatcher.swift in Sources */,
 				C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */,
 				8804C9ECAD28A8264C317AAB /* ItemStore.swift in Sources */,
-				A372539673ACD024B6D1B68D /* PanelController.swift in Sources */,
 				83FF03D5082DD426FDBC061F /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,7 +19,7 @@ struct SettingsView: View {
 
                     Slider(value: $sliderValue, in: 5...50, step: 1)
                         .tint(.green)
-                        .onChange(of: sliderValue) { _, new in
+                        .onChange(of: sliderValue) { new in
                             store.maxItems = Int(new)
                         }
 
