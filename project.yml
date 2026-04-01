@@ -1,0 +1,43 @@
+name: Knapsack
+options:
+  bundleIdPrefix: com.knapsack
+  deploymentTarget:
+    macOS: "13.0"
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGNING_REQUIRED: NO
+    CODE_SIGNING_ALLOWED: YES
+
+targets:
+  Knapsack:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+        excludes:
+          - "Info.plist"
+    info:
+      path: Sources/Info.plist
+      properties:
+        LSUIElement: true
+        NSHighResolutionCapable: true
+        NSSupportsAutomaticTermination: false
+        NSSupportsSuddenTermination: false
+        NSPasteboardUsageDescription: Knapsack monitors your clipboard to save copied items.
+        NSDesktopFolderUsageDescription: Knapsack watches your Desktop to automatically save screenshots.
+        NSDownloadsFolderUsageDescription: Knapsack watches your Downloads folder to automatically save new files.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.knapsack.app
+        PRODUCT_NAME: Knapsack
+        INFOPLIST_FILE: Sources/Info.plist
+
+configs:
+  Debug: debug
+  Release: release
