@@ -42,7 +42,49 @@ struct ClovePopupView: View {
     }
 
     private var mainContent: some View {
-        Group {
+        HStack(spacing: 0) {
+            // Settings button on the left
+            VStack(spacing: 8) {
+                Button(action: {
+                    (NSApp.delegate as? AppDelegate)?.openSettings()
+                }) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.white.opacity(0.6))
+                        .frame(width: 32, height: 32)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                        )
+                }
+                .buttonStyle(.plain)
+
+                Button(action: { store.clearAll() }) {
+                    Image(systemName: "trash.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.4))
+                        .frame(width: 32, height: 28)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.leading, 12)
+            .padding(.trailing, 4)
+
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.1))
+                .frame(width: 1)
+                .padding(.vertical, 16)
+
+            // Items
             if store.items.isEmpty {
                 VStack(spacing: 6) {
                     Image(systemName: "leaf.fill")
@@ -52,6 +94,7 @@ struct ClovePopupView: View {
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }
+                .frame(maxWidth: .infinity)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
@@ -60,7 +103,7 @@ struct ClovePopupView: View {
                                 .environmentObject(store)
                         }
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 12)
                     .padding(.vertical, 14)
                 }
             }
