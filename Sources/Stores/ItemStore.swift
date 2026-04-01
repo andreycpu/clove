@@ -10,6 +10,8 @@ class ItemStore: ObservableObject {
         let stored = UserDefaults.standard.integer(forKey: "clove.maxItems")
         return stored == 0 ? 10 : stored
     }()
+    /// 1-based index of the item that was just copied (in reversed/display order), or nil
+    @Published var copiedIndex: Int?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -29,7 +31,6 @@ class ItemStore: ObservableObject {
     }
 
     func tryAdd(_ item: CloveItem) {
-        // Skip duplicates by content
         guard !items.contains(where: { $0.content == item.content }) else { return }
 
         if items.count >= maxItems {
@@ -80,6 +81,19 @@ class ItemStore: ObservableObject {
                 pb.writeObjects([url as NSURL])
             }
         }
+    }
+
+    /// Copy item by 1-based display index (reversed order) and set visual feedback
+    func copyByIndex(_ digit: Int) {
+        let arr = Array(items.reversed())
+        let idx = digit - 1
+        guard idx >= 0 && idx < arr.count else { return }
+        copyToClipboard(arr[idx])
+        copiedIndex = digit
+    }
+
+    func clearCopiedIndex() {
+        copiedIndex = nil
     }
 
     private func append(_ item: CloveItem) {

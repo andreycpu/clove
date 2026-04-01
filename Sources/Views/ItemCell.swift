@@ -8,14 +8,17 @@ struct ItemCell: View {
     @State private var isHovered = false
     @State private var copied = false
 
+    private var isHighlighted: Bool {
+        store.copiedIndex == index
+    }
+
     var body: some View {
         ZStack(alignment: .topLeading) {
-            // Frosted glass tile
             ZStack(alignment: .bottomTrailing) {
                 cellContent
                     .frame(width: 82, height: 82)
 
-                if isHovered && !copied {
+                if isHovered && !copied && !isHighlighted {
                     Image(systemName: "doc.on.doc.fill")
                         .font(.system(size: 9, weight: .bold))
                         .foregroundColor(.white)
@@ -26,7 +29,7 @@ struct ItemCell: View {
                         .transition(.scale(scale: 0.7).combined(with: .opacity))
                 }
 
-                if copied {
+                if copied || isHighlighted {
                     Image(systemName: "checkmark")
                         .font(.system(size: 9, weight: .bold))
                         .foregroundColor(.white)
@@ -41,21 +44,34 @@ struct ItemCell: View {
             .clipShape(RoundedRectangle(cornerRadius: 13))
             .overlay(
                 RoundedRectangle(cornerRadius: 13)
-                    .stroke(Color.white.opacity(isHovered ? 0.25 : 0.1), lineWidth: 0.5)
+                    .stroke(
+                        isHighlighted ? Color.green.opacity(0.8) :
+                        Color.white.opacity(isHovered ? 0.25 : 0.1),
+                        lineWidth: isHighlighted ? 2 : 0.5
+                    )
             )
-            .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+            .shadow(
+                color: isHighlighted ? .green.opacity(0.4) : .black.opacity(0.15),
+                radius: isHighlighted ? 8 : 4,
+                x: 0, y: 2
+            )
+            .scaleEffect(isHighlighted ? 1.05 : 1.0)
 
             // Number badge
             if index <= 9 {
                 Text("\(index)")
                     .font(.system(size: 9, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white.opacity(0.85))
+                    .foregroundColor(isHighlighted ? .white : .white.opacity(0.85))
                     .frame(width: 16, height: 16)
+                    .background(isHighlighted ? Color.green : Color.clear)
                     .background(.ultraThinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
+                            .stroke(
+                                isHighlighted ? Color.green.opacity(0.8) : Color.white.opacity(0.2),
+                                lineWidth: 0.5
+                            )
                     )
                     .offset(x: -4, y: -4)
             }
@@ -75,6 +91,7 @@ struct ItemCell: View {
         }
         .animation(.easeInOut(duration: 0.12), value: isHovered)
         .animation(.easeInOut(duration: 0.12), value: copied)
+        .animation(.easeInOut(duration: 0.15), value: isHighlighted)
     }
 
     @ViewBuilder

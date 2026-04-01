@@ -39,15 +39,6 @@ struct ClovePopupView: View {
         .onChange(of: store.showCapacityWarning) { showing in
             warningPulse = showing
         }
-        .background(
-            KeyShortcutHandler { digit in
-                let arr = Array(store.items.reversed())
-                let idx = digit - 1
-                if idx >= 0 && idx < arr.count {
-                    store.copyToClipboard(arr[idx])
-                }
-            }
-        )
     }
 
     private var mainContent: some View {
@@ -101,39 +92,6 @@ struct ClovePopupView: View {
             }
         }
         .padding(.horizontal, 28)
-    }
-}
-
-// MARK: - Key shortcut handler
-
-struct KeyShortcutHandler: NSViewRepresentable {
-    let onDigit: (Int) -> Void
-
-    func makeNSView(context: Context) -> KeyCatchView {
-        let v = KeyCatchView()
-        v.onDigit = onDigit
-        DispatchQueue.main.async { v.window?.makeFirstResponder(v) }
-        return v
-    }
-    func updateNSView(_ nsView: KeyCatchView, context: Context) {
-        nsView.onDigit = onDigit
-    }
-}
-
-class KeyCatchView: NSView {
-    var onDigit: ((Int) -> Void)?
-    override var acceptsFirstResponder: Bool { true }
-    override func viewDidMoveToWindow() {
-        super.viewDidMoveToWindow()
-        window?.makeFirstResponder(self)
-    }
-    override func keyDown(with event: NSEvent) {
-        if let ch = event.characters, ch.count == 1,
-           let d = Int(ch), d >= 1 && d <= 9 {
-            onDigit?(d)
-        } else {
-            super.keyDown(with: event)
-        }
     }
 }
 

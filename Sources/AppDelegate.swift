@@ -10,13 +10,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var popupWindow: NSPanel?
     private var isPopupVisible = false
+    private var localKeyMonitor: Any?
+    private var globalKeyMonitor: Any?
+    private var isDismissing = false
 
     let store = ItemStore()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         setupStatusItem()
-        // Defer hotkey registration until after run loop is fully started
         DispatchQueue.main.async { self.registerHotKey() }
         clipboardMonitor = ClipboardMonitor(store: store)
         clipboardMonitor?.start()
@@ -50,6 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showPopup() {
         guard let screen = NSScreen.main else { return }
+        isDismissing = false
 
         if popupWindow == nil {
             let hosting = NSHostingView(rootView: ClovePopupView().environmentObject(store))
@@ -66,23 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             win.contentView = hosting
             win.backgroundColor = .clear
             win.isOpaque = false
-            win.level = .statusBar
+            win.level = .floating
             win.collectionBehavior = [.canJoinAllSpaces, .stationary, .fullScreenAuxiliary]
             win.hasShadow = true
             win.becomesKeyOnlyIfNeeded = false
             popupWindow = win
-
-            NotificationCenter.default.addObserver(
-                forName: NSWindow.didResignKeyNotification,
-                object: win,
-                queue: .main
-            ) { [weak self] _ in
-                // Small delay prevents immediate re-hide when focus transitions during show
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    guard let self = self, self.isPopupVisible else { return }
-                    self.hidePopup()
-                }
-            }
         }
 
         let winW: CGFloat = 700
@@ -93,13 +84,67 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         popupWindow?.setFrame(NSRect(x: x, y: y, width: winW, height: winH), display: false)
         popupWindow?.orderFrontRegardless()
+
+        // Activate the app so it can receive key events
+        NSApp.activate(ignoringOtherApps: true)
         popupWindow?.makeKey()
+        popupWindow?.makeFirstResponder(popupWindow?.contentView)
+
         isPopupVisible = true
+        installKeyMonitors()
     }
 
     private func hidePopup() {
+        guard !isDismissing else { return }
+        isDismissing = true
+        removeKeyMonitors()
         popupWindow?.orderOut(nil)
         isPopupVisible = false
+        store.clearCopiedIndex()
+        // Deactivate so previous app regains focus
+        NSApp.hide(nil)
+    }
+
+    private func copyAndDismiss(_ digit: Int) {
+        store.copyByIndex(digit)
+        // Brief delay to show the green highlight, then dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) { [weak self] in
+            self?.hidePopup()
+        }
+    }
+
+    private func installKeyMonitors() {
+        guard localKeyMonitor == nil else { return }
+
+        // Local monitor for when Clove is active (primary path)
+        localKeyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self = self, self.isPopupVisible else { return event }
+            return self.handleKeyEvent(event) ? nil : event
+        }
+
+        // Global monitor as fallback when another app somehow has focus
+        globalKeyMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self = self, self.isPopupVisible else { return }
+            _ = self.handleKeyEvent(event)
+        }
+    }
+
+    private func handleKeyEvent(_ event: NSEvent) -> Bool {
+        if let ch = event.characters, ch.count == 1,
+           let d = Int(ch), d >= 1 && d <= 9 {
+            copyAndDismiss(d)
+            return true
+        }
+        if event.keyCode == 53 { // Escape
+            hidePopup()
+            return true
+        }
+        return false
+    }
+
+    private func removeKeyMonitors() {
+        if let m = localKeyMonitor { NSEvent.removeMonitor(m); localKeyMonitor = nil }
+        if let m = globalKeyMonitor { NSEvent.removeMonitor(m); globalKeyMonitor = nil }
     }
 
     private func registerHotKey() {
