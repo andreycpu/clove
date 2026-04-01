@@ -21,13 +21,13 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSDesktopFolderUsageDescription</key>
-	<string>Knapsack watches your Desktop to automatically save screenshots.</string>
+	<string>Clove watches your Desktop to automatically save screenshots.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string>Knapsack watches your Downloads folder to automatically save new files.</string>
+	<string>Clove watches your Downloads folder to automatically save new files.</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSPasteboardUsageDescription</key>
-	<string>Knapsack monitors your clipboard to save copied items.</string>
+	<string>Clove monitors your clipboard to save copied items.</string>
 	<key>NSSupportsAutomaticTermination</key>
 	<false/>
 	<key>NSSupportsSuddenTermination</key>

@@ -76,8 +76,8 @@ class FolderWatcher {
     private func ingest(path: String, filename: String, ext: String) {
         if imageExtensions.contains(ext) {
             guard let image = NSImage(contentsOfFile: path),
-                  let thumb = image.knapsackThumbnail() else { return }
-            let item = KnapsackItem(
+                  let thumb = image.cloveThumbnail() else { return }
+            let item = CloveItem(
                 id: UUID(),
                 type: .image,
                 content: path,
@@ -89,8 +89,8 @@ class FolderWatcher {
         } else {
             // Generic file - use system icon as thumbnail
             let icon = NSWorkspace.shared.icon(forFile: path)
-            let thumb = icon.knapsackThumbnail(maxDimension: 60)
-            let item = KnapsackItem(
+            let thumb = icon.cloveThumbnail(maxDimension: 60)
+            let item = CloveItem(
                 id: UUID(),
                 type: .file,
                 content: path,

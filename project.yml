@@ -1,6 +1,6 @@
-name: Knapsack
+name: Clove
 options:
-  bundleIdPrefix: com.knapsack
+  bundleIdPrefix: com.clove
   deploymentTarget:
     macOS: "13.0"
   defaultConfig: Debug
@@ -15,7 +15,7 @@ settings:
     CODE_SIGNING_ALLOWED: YES
 
 targets:
-  Knapsack:
+  Clove:
     type: application
     platform: macOS
     sources:
@@ -29,13 +29,13 @@ targets:
         NSHighResolutionCapable: true
         NSSupportsAutomaticTermination: false
         NSSupportsSuddenTermination: false
-        NSPasteboardUsageDescription: Knapsack monitors your clipboard to save copied items.
-        NSDesktopFolderUsageDescription: Knapsack watches your Desktop to automatically save screenshots.
-        NSDownloadsFolderUsageDescription: Knapsack watches your Downloads folder to automatically save new files.
+        NSPasteboardUsageDescription: Clove monitors your clipboard to save copied items.
+        NSDesktopFolderUsageDescription: Clove watches your Desktop to automatically save screenshots.
+        NSDownloadsFolderUsageDescription: Clove watches your Downloads folder to automatically save new files.
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.knapsack.app
-        PRODUCT_NAME: Knapsack
+        PRODUCT_BUNDLE_IDENTIFIER: com.clove.app
+        PRODUCT_NAME: Clove
         INFOPLIST_FILE: Sources/Info.plist
 
 configs:

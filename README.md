@@ -1,8 +1,8 @@
-# Knapsack
+# Clove
 
 A lightweight macOS menu bar app that turns your clipboard history, screenshots, and downloads into a frosted-glass inventory panel - inspired by the item grid from Animal Crossing.
 
-![Knapsack demo](assets/demo.gif)
+![Clove demo](assets/demo.gif)
 
 ## What it does
 
@@ -26,10 +26,10 @@ brew install xcodegen
 
 # Generate Xcode project and open it
 bash setup.sh
-open Knapsack.xcodeproj
+open Clove.xcodeproj
 ```
 
-Hit `Cmd+R` in Xcode to build and run. Knapsack will appear as a bag icon (`􀎭`) in your menu bar.
+Hit `Cmd+R` in Xcode to build and run. Clove will appear as a bag icon (`􀎭`) in your menu bar.
 
 ## Usage
 
@@ -43,7 +43,7 @@ Hit `Cmd+R` in Xcode to build and run. Knapsack will appear as a bag icon (`􀎭
 - Frosted glass (`.hudWindow` vibrancy) pill panel drops down from the menu bar
 - Zero CPU at rest - clipboard uses a timer with OS-batched tolerance, folder watching uses kernel-level `DispatchSource` events
 - Images stored as compressed 80x80 JPEG thumbnails - original files are never duplicated
-- All data persists to `~/Library/Application Support/Knapsack/items.json`
+- All data persists to `~/Library/Application Support/Clove/items.json`
 
 ## License
 

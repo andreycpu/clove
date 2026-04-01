@@ -7,7 +7,7 @@ enum ItemType: String, Codable {
     case file
 }
 
-struct KnapsackItem: Identifiable, Codable, Equatable {
+struct CloveItem: Identifiable, Codable, Equatable {
     let id: UUID
     let type: ItemType
     let content: String       // text content OR file path
@@ -19,7 +19,7 @@ struct KnapsackItem: Identifiable, Codable, Equatable {
         thumbnailData.flatMap { NSImage(data: $0) }
     }
 
-    static func == (lhs: KnapsackItem, rhs: KnapsackItem) -> Bool {
+    static func == (lhs: CloveItem, rhs: CloveItem) -> Bool {
         lhs.id == rhs.id
     }
 }

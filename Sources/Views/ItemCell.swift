@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 struct ItemCell: View {
-    let item: KnapsackItem
+    let item: CloveItem
     @EnvironmentObject var store: ItemStore
     @State private var isHovered = false
     @State private var copied = false

@@ -1,0 +1,356 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10F21D737D402C89BC3AA936 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB3AD07D7037C231DEDD25 /* ContentView.swift */; };
+		1822E8279C70510AFA93F047 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59141A83248C21B3046786 /* FolderWatcher.swift */; };
+		3C3D67E7D20E09BE29012014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A7806DB9379359197F186C /* AppDelegate.swift */; };
+		6039CF6AC7EEBFEC133A86A4 /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617212B052484166D82D0D9 /* ClipboardMonitor.swift */; };
+		83FF03D5082DD426FDBC061F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B603F9D415689B415C37EC4D /* SettingsView.swift */; };
+		8804C9ECAD28A8264C317AAB /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC79C2CAC9C1CE36A962EA2 /* ItemStore.swift */; };
+		9FF3D2852D7CEEC4D4CDE0D8 /* CloveItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD1E0140A65A32F9BAB25A /* CloveItem.swift */; };
+		A372539673ACD024B6D1B68D /* PanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5572D6C8C4DE37E74337C614 /* PanelController.swift */; };
+		AE1899AAAC46E869EAF74AEA /* CloveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0387967D6666B1954A4D10E /* CloveApp.swift */; };
+		C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2EB3502256888F71D514C /* ItemCell.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2AB2EB3502256888F71D514C /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		30DD1E0140A65A32F9BAB25A /* CloveItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloveItem.swift; sourceTree = "<group>"; };
+		5572D6C8C4DE37E74337C614 /* PanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelController.swift; sourceTree = "<group>"; };
+		5F59141A83248C21B3046786 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
+		72A7806DB9379359197F186C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A617212B052484166D82D0D9 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
+		A8EDDF78E23DCE9DB4E19813 /* Clove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clove.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B603F9D415689B415C37EC4D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C0387967D6666B1954A4D10E /* CloveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloveApp.swift; sourceTree = "<group>"; };
+		EDC79C2CAC9C1CE36A962EA2 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
+		F3CB3AD07D7037C231DEDD25 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2D8AFD7D17C107C97AF7FD72 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3CB3AD07D7037C231DEDD25 /* ContentView.swift */,
+				2AB2EB3502256888F71D514C /* ItemCell.swift */,
+				B603F9D415689B415C37EC4D /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3CFEF625C950C00634F510B5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				72A7806DB9379359197F186C /* AppDelegate.swift */,
+				C0387967D6666B1954A4D10E /* CloveApp.swift */,
+				5572D6C8C4DE37E74337C614 /* PanelController.swift */,
+				DEC70EA0E40DC11B0D538EA8 /* Models */,
+				DDD4AB1683A8E83CC3EE33A3 /* Monitors */,
+				8C2E5845B364158457C19639 /* Stores */,
+				2D8AFD7D17C107C97AF7FD72 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		5AA7C8609324E5729B2DAC6E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8EDDF78E23DCE9DB4E19813 /* Clove.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C2E5845B364158457C19639 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				EDC79C2CAC9C1CE36A962EA2 /* ItemStore.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		DDD4AB1683A8E83CC3EE33A3 /* Monitors */ = {
+			isa = PBXGroup;
+			children = (
+				A617212B052484166D82D0D9 /* ClipboardMonitor.swift */,
+				5F59141A83248C21B3046786 /* FolderWatcher.swift */,
+			);
+			path = Monitors;
+			sourceTree = "<group>";
+		};
+		DEC70EA0E40DC11B0D538EA8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				30DD1E0140A65A32F9BAB25A /* CloveItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F556C6E206CC6BAD488F31D5 = {
+			isa = PBXGroup;
+			children = (
+				3CFEF625C950C00634F510B5 /* Sources */,
+				5AA7C8609324E5729B2DAC6E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		99E860FA84B8FB7A728E1DFD /* Clove */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 450F7923B2F94DC6B75DCA45 /* Build configuration list for PBXNativeTarget "Clove" */;
+			buildPhases = (
+				D9F9298E72F1C570801B0950 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Clove;
+			packageProductDependencies = (
+			);
+			productName = Clove;
+			productReference = A8EDDF78E23DCE9DB4E19813 /* Clove.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		061B1213B698217BED73D077 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = CC5AB6D210ACB548777D29F9 /* Build configuration list for PBXProject "Clove" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F556C6E206CC6BAD488F31D5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5AA7C8609324E5729B2DAC6E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				99E860FA84B8FB7A728E1DFD /* Clove */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9F9298E72F1C570801B0950 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C3D67E7D20E09BE29012014 /* AppDelegate.swift in Sources */,
+				6039CF6AC7EEBFEC133A86A4 /* ClipboardMonitor.swift in Sources */,
+				AE1899AAAC46E869EAF74AEA /* CloveApp.swift in Sources */,
+				9FF3D2852D7CEEC4D4CDE0D8 /* CloveItem.swift in Sources */,
+				10F21D737D402C89BC3AA936 /* ContentView.swift in Sources */,
+				1822E8279C70510AFA93F047 /* FolderWatcher.swift in Sources */,
+				C2D66282AFA52AB0279C3804 /* ItemCell.swift in Sources */,
+				8804C9ECAD28A8264C317AAB /* ItemStore.swift in Sources */,
+				A372539673ACD024B6D1B68D /* PanelController.swift in Sources */,
+				83FF03D5082DD426FDBC061F /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		074E4CBAEC9694C6DAC71567 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		1299B53A00E8F102DA61579B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		557D930D9EF44656E3A7CFB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clove.app;
+				PRODUCT_NAME = Clove;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9584122CF6D93D444BE3B83F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clove.app;
+				PRODUCT_NAME = Clove;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		450F7923B2F94DC6B75DCA45 /* Build configuration list for PBXNativeTarget "Clove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557D930D9EF44656E3A7CFB1 /* Debug */,
+				9584122CF6D93D444BE3B83F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CC5AB6D210ACB548777D29F9 /* Build configuration list for PBXProject "Clove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				074E4CBAEC9694C6DAC71567 /* Debug */,
+				1299B53A00E8F102DA61579B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 061B1213B698217BED73D077 /* Project object */;
+}

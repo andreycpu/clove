@@ -3,11 +3,11 @@ import AppKit
 import Combine
 
 class ItemStore: ObservableObject {
-    @Published var items: [KnapsackItem] = []
+    @Published var items: [CloveItem] = []
     @Published var showCapacityWarning = false
-    @Published var pendingItem: KnapsackItem?
+    @Published var pendingItem: CloveItem?
     @Published var maxItems: Int = {
-        let stored = UserDefaults.standard.integer(forKey: "knapsack.maxItems")
+        let stored = UserDefaults.standard.integer(forKey: "clove.maxItems")
         return stored == 0 ? 10 : stored
     }()
 
@@ -15,7 +15,7 @@ class ItemStore: ObservableObject {
 
     private let storageURL: URL = {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let dir = appSupport.appendingPathComponent("Knapsack")
+        let dir = appSupport.appendingPathComponent("Clove")
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir.appendingPathComponent("items.json")
     }()
@@ -24,11 +24,11 @@ class ItemStore: ObservableObject {
         load()
         $maxItems
             .dropFirst()
-            .sink { UserDefaults.standard.set($0, forKey: "knapsack.maxItems") }
+            .sink { UserDefaults.standard.set($0, forKey: "clove.maxItems") }
             .store(in: &cancellables)
     }
 
-    func tryAdd(_ item: KnapsackItem) {
+    func tryAdd(_ item: CloveItem) {
         // Skip duplicates by content
         guard !items.contains(where: { $0.content == item.content }) else { return }
 
@@ -53,7 +53,7 @@ class ItemStore: ObservableObject {
         showCapacityWarning = false
     }
 
-    func remove(_ item: KnapsackItem) {
+    func remove(_ item: CloveItem) {
         items.removeAll { $0.id == item.id }
         persist()
     }
@@ -63,7 +63,7 @@ class ItemStore: ObservableObject {
         persist()
     }
 
-    func copyToClipboard(_ item: KnapsackItem) {
+    func copyToClipboard(_ item: CloveItem) {
         let pb = NSPasteboard.general
         pb.clearContents()
         switch item.type {
@@ -82,7 +82,7 @@ class ItemStore: ObservableObject {
         }
     }
 
-    private func append(_ item: KnapsackItem) {
+    private func append(_ item: CloveItem) {
         items.append(item)
         persist()
     }
@@ -95,7 +95,7 @@ class ItemStore: ObservableObject {
 
     private func load() {
         guard let data = try? Data(contentsOf: storageURL),
-              let decoded = try? JSONDecoder().decode([KnapsackItem].self, from: data)
+              let decoded = try? JSONDecoder().decode([CloveItem].self, from: data)
         else { return }
         items = decoded
     }

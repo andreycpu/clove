@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct KnapsackApp: App {
+struct CloveApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {

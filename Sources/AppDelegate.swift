@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let button = statusItem?.button else { return }
 
         let config = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
-        button.image = NSImage(systemSymbolName: "bag.fill", accessibilityDescription: "Knapsack")?
+        button.image = NSImage(systemSymbolName: "bag.fill", accessibilityDescription: "Clove")?
             .withSymbolConfiguration(config)
         button.action = #selector(togglePanel)
         button.target = self

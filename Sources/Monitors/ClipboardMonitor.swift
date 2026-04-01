@@ -35,7 +35,7 @@ class ClipboardMonitor {
         // Text
         if let str = pb.string(forType: .string), !str.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let truncated = String(str.prefix(10_000))
-            let item = KnapsackItem(
+            let item = CloveItem(
                 id: UUID(),
                 type: .text,
                 content: truncated,
@@ -52,8 +52,8 @@ class ClipboardMonitor {
         for type in imageTypes {
             if let data = pb.data(forType: type),
                let image = NSImage(data: data),
-               let thumb = image.knapsackThumbnail() {
-                let item = KnapsackItem(
+               let thumb = image.cloveThumbnail() {
+                let item = CloveItem(
                     id: UUID(),
                     type: .image,
                     content: "clipboard:\(UUID().uuidString)",
@@ -69,7 +69,7 @@ class ClipboardMonitor {
 }
 
 extension NSImage {
-    func knapsackThumbnail(maxDimension: CGFloat = 80) -> Data? {
+    func cloveThumbnail(maxDimension: CGFloat = 80) -> Data? {
         guard size.width > 0, size.height > 0 else { return nil }
         let scale = min(maxDimension / size.width, maxDimension / size.height, 1.0)
         let newSize = NSSize(width: floor(size.width * scale), height: floor(size.height * scale))
