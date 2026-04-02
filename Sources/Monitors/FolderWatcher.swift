@@ -11,10 +11,20 @@ class FolderWatcher {
 
     private lazy var watchedDirs: [URL] = {
         let home = FileManager.default.homeDirectoryForCurrentUser
-        return [
+        var dirs = [
             home.appendingPathComponent("Desktop"),
             home.appendingPathComponent("Downloads")
         ]
+
+        // Add the user's configured screenshot location
+        if let screenshotPath = UserDefaults(suiteName: "com.apple.screencapture")?.string(forKey: "location") {
+            let url = URL(fileURLWithPath: (screenshotPath as NSString).expandingTildeInPath)
+            if FileManager.default.fileExists(atPath: url.path), !dirs.contains(url) {
+                dirs.append(url)
+            }
+        }
+
+        return dirs
     }()
 
     init(store: ItemStore) {
