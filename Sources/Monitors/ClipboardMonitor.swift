@@ -32,6 +32,32 @@ class ClipboardMonitor {
         guard current != lastChangeCount else { return }
         lastChangeCount = current
 
+        // Check images FIRST - screenshots put both image and file URL on the pasteboard,
+        // so checking text first would capture the URL string instead of the image
+        let imageTypes: [NSPasteboard.PasteboardType] = [.tiff, .png, NSPasteboard.PasteboardType("public.jpeg")]
+        for type in imageTypes {
+            if let data = pb.data(forType: type),
+               let image = NSImage(data: data),
+               let thumb = image.cloveThumbnail() {
+                // Try to get a display name from file URL if available
+                var name = "Screenshot"
+                if let urlStr = pb.string(forType: NSPasteboard.PasteboardType("public.file-url")),
+                   let url = URL(string: urlStr) {
+                    name = url.lastPathComponent
+                }
+                let item = CloveItem(
+                    id: UUID(),
+                    type: .image,
+                    content: "clipboard:\(UUID().uuidString)",
+                    thumbnailData: thumb,
+                    timestamp: Date(),
+                    displayName: name
+                )
+                DispatchQueue.main.async { self.store.tryAdd(item) }
+                return
+            }
+        }
+
         // Text
         if let str = pb.string(forType: .string), !str.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let truncated = String(str.prefix(10_000))
@@ -45,25 +71,6 @@ class ClipboardMonitor {
             )
             DispatchQueue.main.async { self.store.tryAdd(item) }
             return
-        }
-
-        // Image (TIFF or PNG on pasteboard)
-        let imageTypes: [NSPasteboard.PasteboardType] = [.tiff, .png, NSPasteboard.PasteboardType("public.jpeg")]
-        for type in imageTypes {
-            if let data = pb.data(forType: type),
-               let image = NSImage(data: data),
-               let thumb = image.cloveThumbnail() {
-                let item = CloveItem(
-                    id: UUID(),
-                    type: .image,
-                    content: "clipboard:\(UUID().uuidString)",
-                    thumbnailData: thumb,
-                    timestamp: Date(),
-                    displayName: "Copied image"
-                )
-                DispatchQueue.main.async { self.store.tryAdd(item) }
-                return
-            }
         }
     }
 }
