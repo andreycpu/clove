@@ -155,7 +155,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             eventKind: UInt32(kEventHotKeyPressed)
         )
 
-        let selfPtr = Unmanaged.passUnretained(self).toOpaque()
+        let selfPtr = Unmanaged.passRetained(self).toOpaque()
 
         let handlerStatus = InstallEventHandler(
             GetApplicationEventTarget(),

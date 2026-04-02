@@ -74,6 +74,19 @@ class FolderWatcher {
     }
 
     private func ingest(path: String, filename: String, ext: String) {
+        // Skip symlinks to avoid reading unintended files
+        let fm = FileManager.default
+        if let attrs = try? fm.attributesOfItem(atPath: path),
+           let fileType = attrs[.type] as? FileAttributeType,
+           fileType == .typeSymbolicLink {
+            return
+        }
+
+        // Verify the file is still inside the watched directory
+        let resolvedPath = (path as NSString).resolvingSymlinksInPath
+        let inWatchedDir = watchedDirs.contains { resolvedPath.hasPrefix($0.path) }
+        guard inWatchedDir else { return }
+
         if imageExtensions.contains(ext) {
             guard let image = NSImage(contentsOfFile: path),
                   let thumb = image.cloveThumbnail() else { return }

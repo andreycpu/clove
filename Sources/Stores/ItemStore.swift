@@ -18,7 +18,7 @@ class ItemStore: ObservableObject {
     private let storageURL: URL = {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let dir = appSupport.appendingPathComponent("Clove")
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
         return dir.appendingPathComponent("items.json")
     }()
 
@@ -77,7 +77,8 @@ class ItemStore: ObservableObject {
                 pb.writeObjects([thumb])
             }
         case .file:
-            if let url = URL(string: "file://" + item.content) {
+            if item.content.hasPrefix("/") {
+                let url = URL(fileURLWithPath: item.content)
                 pb.writeObjects([url as NSURL])
             }
         }
@@ -105,6 +106,8 @@ class ItemStore: ObservableObject {
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(items) else { return }
         try? data.write(to: storageURL, options: .atomic)
+        // Restrict file permissions to owner only
+        try? FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: storageURL.path)
     }
 
     private func load() {
