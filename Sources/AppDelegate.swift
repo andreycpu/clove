@@ -6,6 +6,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var clipboardMonitor: ClipboardMonitor?
     private var folderWatcher: FolderWatcher?
     private var hotKeyRef: EventHotKeyRef?
+    private var eventHandlerRef: EventHandlerRef?
+    private var hotKeyFallbackMonitor: Any?
 
     private var statusItem: NSStatusItem!
     private var popupWindow: NSPanel?
@@ -155,7 +157,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let selfPtr = Unmanaged.passUnretained(self).toOpaque()
 
-        InstallEventHandler(
+        let handlerStatus = InstallEventHandler(
             GetApplicationEventTarget(),
             { (_, event, userData) -> OSStatus in
                 guard let event = event, let userData = userData else { return noErr }
@@ -174,13 +176,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 DispatchQueue.main.async { delegate.togglePopup() }
                 return noErr
             },
-            1, &eventSpec, selfPtr, nil
+            1, &eventSpec, selfPtr, &eventHandlerRef
         )
+
+        guard handlerStatus == noErr else {
+            NSLog("Clove: Failed to install event handler (status: \(handlerStatus)), using fallback")
+            installHotKeyFallback()
+            return
+        }
 
         // V = keycode 9, Cmd+Shift
         let modifiers = UInt32(cmdKey | shiftKey)
         let hkID = EventHotKeyID(signature: FourCharCode(0x434C5654), id: 1)
-        RegisterEventHotKey(9, modifiers, hkID, GetApplicationEventTarget(), 0, &hotKeyRef)
+        let regStatus = RegisterEventHotKey(9, modifiers, hkID, GetApplicationEventTarget(), 0, &hotKeyRef)
+
+        if regStatus != noErr {
+            NSLog("Clove: Failed to register hotkey (status: \(regStatus)), using fallback")
+            installHotKeyFallback()
+        }
+    }
+
+    private func installHotKeyFallback() {
+        guard hotKeyFallbackMonitor == nil else { return }
+        hotKeyFallbackMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self = self else { return }
+            let cmdShift: NSEvent.ModifierFlags = [.command, .shift]
+            if event.keyCode == 9 && event.modifierFlags.intersection(.deviceIndependentFlagsMask) == cmdShift {
+                DispatchQueue.main.async { self.togglePopup() }
+            }
+        }
     }
 
     func openSettings() {
