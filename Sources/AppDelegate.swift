@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var isPopupVisible = false
     private var localKeyMonitor: Any?
     private var globalKeyMonitor: Any?
+    private var globalClickMonitor: Any?
     private var isDismissing = false
 
     let store = ItemStore()
@@ -94,12 +95,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         isPopupVisible = true
         installKeyMonitors()
+        installClickOutsideMonitor()
     }
 
     private func hidePopup() {
         guard !isDismissing else { return }
         isDismissing = true
         removeKeyMonitors()
+        removeClickOutsideMonitor()
         popupWindow?.orderOut(nil)
         isPopupVisible = false
         store.clearCopiedIndex()
@@ -142,6 +145,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return true
         }
         return false
+    }
+
+    private func installClickOutsideMonitor() {
+        guard globalClickMonitor == nil else { return }
+        globalClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            guard let self = self, self.isPopupVisible else { return }
+            if let window = self.popupWindow {
+                let screenLoc = NSEvent.mouseLocation
+                if !window.frame.contains(screenLoc) {
+                    DispatchQueue.main.async { self.hidePopup() }
+                }
+            }
+        }
+    }
+
+    private func removeClickOutsideMonitor() {
+        if let m = globalClickMonitor { NSEvent.removeMonitor(m); globalClickMonitor = nil }
     }
 
     private func removeKeyMonitors() {

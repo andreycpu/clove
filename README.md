@@ -13,27 +13,33 @@ A lightweight macOS menu bar app that turns your clipboard history, screenshots,
 - Green copy button on hover to paste any item back to clipboard
 - Red capacity warning when full - choose to replace oldest or adjust the limit
 
-## Quick Start
+## Install
 
 ```bash
 git clone https://github.com/andreycpu/clove.git
 cd clove
 bash setup.sh
-open Clove.xcodeproj
 ```
 
-Then press `Cmd+R` in Xcode to build and run. Clove will appear as a leaf icon in your menu bar.
+That's it. The script builds the app, installs it to `/Applications`, configures it to start automatically at login, and launches it. No need to open Xcode.
 
 ### Requirements
 
 - macOS 13.0+
-- Xcode 15+
-- [xcodegen](https://github.com/yonaskolb/XcodeGen) (installed automatically by `setup.sh` via Homebrew)
+- Xcode Command Line Tools (`xcode-select --install`)
+- [Homebrew](https://brew.sh) (xcodegen is installed automatically)
+
+### Uninstall
+
+```bash
+bash uninstall.sh
+```
 
 ## Usage
 
 - **Cmd+Shift+V** - toggle the Clove panel from anywhere
 - **Click the menu bar icon** - also toggles the panel
+- **Click anywhere outside** - dismisses the panel
 - **Press 1-9** - copy the corresponding item back to clipboard and dismiss
 - **Hover an item** - reveals the green copy button
 - **Escape** - dismiss the panel
